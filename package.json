@@ -19,7 +19,8 @@
     "react-toastify": "^6.2.0",
     "simple-react-modal": "0.5.1",
     "web-vitals": "^0.2.4",
-    "suneditor-react": "2.16.5"
+    "suneditor-react": "2.16.5",
+    "font-awesome-icons": "1.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -3,16 +3,16 @@ import { withRouter } from "react-router-dom";
 import SideNav from './DashboardSideNav';
 import { Card, Row } from 'react-bootstrap';
 import { isAuthenticated } from '../../api/auth';
-import { getPosts, deletePost } from '../../api/AllPosts/allposts';
+import { getPosts, deletePost,searchPosts } from '../../api/AllPosts/allposts';
 import ImageComponent from './imageComponent/image';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import { API } from '../../config';
 
 const Dashboard = (props) => {
-  const [state, setState] = useState([]);
+  const [state, setState,setInput] = useState([]);
   const { user, token } = isAuthenticated();
-
+  let inputVar="";
   const loadPosts = () => {
     getPosts(10)
       .then((data) => {
@@ -25,10 +25,26 @@ const Dashboard = (props) => {
       .catch((err) => console.log(err, 'error in get all post dashboard'));
   }
 
+  function search(){
+    searchPosts(inputVar)
+    .then((data) => {
+      if (data.error) {
+        console.log(data.error, 'search allposts');
+      } else {
+        setState(data);
+      }
+    })
+    .catch((err) => console.log(err, 'error in get all post dashboard'));
+  }
+  function updateInputValue(evt) {
+       inputVar=evt.target.value;
+  }
+
   useEffect(() => {
     loadPosts();
     // eslint-disable-next-line
   }, []);
+  
 
   const destroy = (postId) => {
     deletePost(postId, user._id, token).then((data) => {
@@ -43,6 +59,7 @@ const Dashboard = (props) => {
   };
 
   return (
+    
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-2">
@@ -56,10 +73,24 @@ const Dashboard = (props) => {
 
             </Card.Body>
           </Card>
+       <div className="container-fluid">
+         <div className="row">
+            <div className="col-md-3">
+              <h2 className="text-secondary">recenti posts</h2>
+            </div>
+            <div className="col-sm-8">
+              <div class="input-group">
+               <input type="search" class="form-control rounded" placeholder="Search" 
+               aria-label="Search" aria-describedby="search-addon"  onChange={updateInputValue}/>
+                <button type="button" class="btn btn-outline-primary" onClick={search}>search</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <h2 className="text-secondary">recenti posts</h2>
-          
 
+
+         
           <Row className="my-3">
             <div className="my-3 gridBox">
               {state.map((c, i) => (

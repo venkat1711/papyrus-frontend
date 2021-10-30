@@ -187,3 +187,18 @@ export const deleteRegisterPost = (registerpostId, userId, token) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const searchPosts = async (val) => {
+  return await fetch(`${API}/search/posts`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ val }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
