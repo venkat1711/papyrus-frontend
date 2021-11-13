@@ -45,11 +45,10 @@ const RicercaForm = ({ history }) => {
             } else {
                 history.push({
                     pathname: '/allposts',
-                    state: { detail: data }
+                    state: { detail: data.data,totalPage:data.pages,values:values }
                 })
             }
-        })
-            .catch((err) => console.log(err, 'error in get all Datezone'));
+        }).catch((err) => console.log(err, 'error in get all Datezone'));
     }
 
     return (
