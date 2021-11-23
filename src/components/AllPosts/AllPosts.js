@@ -81,10 +81,12 @@ const AllPosts = (props) => {
   return (
     <Fragment>
       {allDetails()}
+      { page>1 &&
       <div style={{ display: 'block', padding: 30 }}>
       {/* <h4>How to use Pagination Component in ReactJS?</h4> */}
       <Pagination count={props.location.state.totalPage} page={page} onChange={handleChange}/>
     </div>
+}
     </Fragment>
   )
 }
