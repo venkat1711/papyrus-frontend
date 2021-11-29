@@ -15,6 +15,8 @@ import Footer from '../../../components/Footer/Footer';
 import { toast } from 'react-toastify';
 import '../css/Ricerca.css';
 import InventoryNumberInput from './inputComponents/InventoryNumber';
+import InventorySearchDropDown from './inputComponents/InventorySearchDropDown';
+
 
 
 const RicercaForm = ({ history }) => {
@@ -30,9 +32,13 @@ const RicercaForm = ({ history }) => {
         TM:0,
         inventoryNumber:""
     });
-
+   
     const handleChange = (e) => {
+       if(!e.target){
+        setValues({ ...values, ['invetory']: e.value });  
+       }else{
         setValues({ ...values, [e.target.name]: e.target.value });
+       }
     };
 
  
@@ -63,7 +69,7 @@ const RicercaForm = ({ history }) => {
                                     Inventory :
                                 </Form.Label>
                                 <Col xs={7} sm={7} >
-                                    <InventoryInputs handleChange={handleChange} />
+                                         <InventorySearchDropDown handleChange={handleChange} />
                                     <InventoryNumberInput handleChange={handleChange} />
                                 </Col>
                                 <Col xs={1} sm={1} >
