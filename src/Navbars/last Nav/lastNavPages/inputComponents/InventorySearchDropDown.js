@@ -39,7 +39,7 @@ const Provenance = ({ handleChange }) => {
         
       options=  
         {values.Inventory.map((e, key) => {
-        return {"label":e.name,"value":e.name};
+        return {"label":e,"value":e};
     })}/>
         </Fragment>
     )

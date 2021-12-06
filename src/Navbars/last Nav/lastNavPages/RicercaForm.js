@@ -35,7 +35,11 @@ const RicercaForm = ({ history }) => {
    
     const handleChange = (e) => {
        if(!e.target){
-        setValues({ ...values, ['invetory']: e.value });  
+         if(e.name=='inventoryNumber'){
+            setValues({ ...values, ['inventoryNumber']: e.value }); 
+         }else{
+        setValues({ ...values, ['inventory']: e.value });  
+         }
        }else{
         setValues({ ...values, [e.target.name]: e.target.value });
        }

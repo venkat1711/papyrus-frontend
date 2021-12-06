@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { getInventoryNumber } from '../../../../api/AllCategories/inventory';
+import Select from 'react-select';
 
 const Provenance = ({ handleChange }) => {
 
-    const [values, setValues] = useState({
+    const [values, setValues,selectedOption] = useState({
         InventoryNumber: []
     });
 
@@ -32,7 +33,7 @@ const Provenance = ({ handleChange }) => {
 
     return (
         <Fragment>
-            <Form.Control
+            {/* <Form.Control
                 name="inventoryNumber"
                 size='md'
                 as='select'
@@ -47,7 +48,15 @@ const Provenance = ({ handleChange }) => {
                             {c}
                         </option>
                     ))}
-            </Form.Control>
+            </Form.Control> */}
+             <Select name="inventoryNumber"
+        value={selectedOption}
+        onChange={handleChange}
+        
+      options=  
+        { values.InventoryNumber.map((e, key) => {
+        return {"label":e,"value":e,"name":"inventoryNumber"};
+    })}/>
         </Fragment>
     )
 }
