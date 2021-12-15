@@ -15,6 +15,8 @@ import Footer from '../../../components/Footer/Footer';
 import { toast } from 'react-toastify';
 import '../css/Ricerca.css';
 import InventoryNumberInput from './inputComponents/InventoryNumber';
+import InventorySearchDropDown from './inputComponents/InventorySearchDropDown';
+
 
 
 const RicercaForm = ({ history }) => {
@@ -30,9 +32,17 @@ const RicercaForm = ({ history }) => {
         TM:0,
         inventoryNumber:""
     });
-
+   
     const handleChange = (e) => {
+       if(!e.target){
+         if(e.name=='inventoryNumber'){
+            setValues({ ...values, ['inventoryNumber']: e.value }); 
+         }else{
+        setValues({ ...values, ['inventory']: e.value });  
+         }
+       }else{
         setValues({ ...values, [e.target.name]: e.target.value });
+       }
     };
 
  
@@ -45,11 +55,10 @@ const RicercaForm = ({ history }) => {
             } else {
                 history.push({
                     pathname: '/allposts',
-                    state: { detail: data }
+                    state: { detail: data.data,totalPage:data.pages,values:values }
                 })
             }
-        })
-            .catch((err) => console.log(err, 'error in get all Datezone'));
+        }).catch((err) => console.log(err, 'error in get all Datezone'));
     }
 
     return (
@@ -64,7 +73,7 @@ const RicercaForm = ({ history }) => {
                                     Inventory :
                                 </Form.Label>
                                 <Col xs={7} sm={7} >
-                                    <InventoryInputs handleChange={handleChange} />
+                                         <InventorySearchDropDown handleChange={handleChange} />
                                     <InventoryNumberInput handleChange={handleChange} />
                                 </Col>
                                 <Col xs={1} sm={1} >
